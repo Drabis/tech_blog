@@ -44,7 +44,7 @@ User.init(
       },
     },
     sequelize,
-    timestamps: false,
+    timestamps: ture,
     freezeTableName: true,
     underscored: true,
     modelName: 'user',
