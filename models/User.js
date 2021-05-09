@@ -16,9 +16,10 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
+    userName: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,
@@ -44,7 +45,7 @@ User.init(
       },
     },
     sequelize,
-    timestamps: ture,
+    timestamps: ture, // the login session has a timestamp
     freezeTableName: true,
     underscored: true,
     modelName: 'user',
