@@ -4,21 +4,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Registry</title>
+  <title>Tech Blog</title>
   <link rel="stylesheet" href="/css/jass.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+  crossorigin="anonymous">
 </head>
 
 <body>
   <header class="display-flex justify-space-between align-center p-2">
     <h1>
-      User Registry
+      Tech Blog
     </h1>
-    <!-- Only display the logout button if the user is logged in -->
-    {{#if logged_in}}
-    <nav>
-      <button class="btn" id="logout">logout</button>
-    </nav>
-    {{/if}}
   </header>
   <main class="container container-fluid mt-5">
     {{{ body }}}
