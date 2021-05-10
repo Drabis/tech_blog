@@ -1,35 +1,55 @@
-const router = require('express').Router();
-const { User } = require('../models');
-const withAuth = require('../utils/auth');
+const router = require("express").Router();
+const { User, Post, Comment } = require("../models");
 
-// Prevent non logged in users from viewing the homepage
-router.get('/', withAuth, async (req, res) => {
+// We grab only the username and comment content from this?
+router.get("/", async (req, res) => {
   try {
-    const userData = await User.findAll({
-      attributes: { exclude: ['password'] },
-      order: [['name', 'ASC']],
+    const postsData = await Post.findAll({
+      include: [
+        {
+          model: User,
+          as: "post_creator",
+          attributes: ["username"],
+        },
+      ],
     });
-
-    const users = userData.map((project) => project.get({ plain: true }));
-
-    res.render('homepage', {
-      users,
-      // Pass the logged in flag to the template
-      logged_in: req.session.logged_in,
+    const posts = postsData.map((post) => post.get({ plain: true }));
+    console.log(posts);
+    res.render("homepage", {
+      posts,
+      logged_in: req.session.logged_in, // logged in status from the session object
+      userId: req.session.user_id, // user id from the session object
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.get('/login', (req, res) => {
-  // If a session exists, redirect the request to the homepage
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
+// This is a placeholder, and will need the login page to be rendered.
+router.get("/signin", async (req, res) => {
+  try {
+    res.status(200).render("signin");
+  } catch (err) {
+    res.status(400).json(err);
   }
+});
 
-  res.render('login');
+// This is a placeholder, and will need the create account page.
+router.get("/signup", async (req, res) => {
+  try {
+    res.status(200).render("signup");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// This is a placeholder, and will need the logout page to be rendered.
+router.get("/signout", async (req, res) => {
+  try {
+    res.status(200).render("signout");
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

@@ -45,7 +45,7 @@ User.init(
       },
     },
     sequelize,
-    timestamps: ture, // the login session has a timestamp
+    timestamps: true, // the login session has a timestamp
     freezeTableName: true,
     underscored: true,
     modelName: 'user',

@@ -1,46 +1,37 @@
-const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/connection");
+const router = require("express").Router();
+const { User, Post, Comment } = require("../models");
 
-class Blog extends Model {}
-
-Blog.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "user",
-        key: "id",
-      },
-    },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    content: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      defaultValue: "Enter your blog text.",
-    },
-    date_created: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-  },
-  {
-    sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: "blog",
+// This grabs the Post by ID, and includes the user who made it, and the comments related to that post, and their respective comment creators
+router.get("/:id", async (req, res) => {
+  try {
+    const rawPostData = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          as: "post_creator",
+          attributes: ["username"],
+        },
+        {
+          model: Comment,
+          as: "post_comments",
+          include: {
+            model: User,
+            as: "comment_creator",
+            attributes: ["username"],
+          },
+        },
+      ],
+    });
+    const postData = rawPostData.get({ plain: true });
+    console.log(postData);
+    res.status(200).render("blogpost", {
+      postData,
+      logged_in: req.session.logged_in,
+      userId: req.session.user_id,
+    });
+  } catch (err) {
+    res.status(400).json("Page not found!");
   }
-);
+});
 
-module.exports = Blog;
+module.exports = router;
