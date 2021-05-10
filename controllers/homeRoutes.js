@@ -26,9 +26,9 @@ router.get("/", async (req, res) => {
 });
 
 // This is a placeholder, and will need the login page to be rendered.
-router.get("/signin", async (req, res) => {
+router.get("/login", async (req, res) => {
   try {
-    res.status(200).render("signin");
+    res.status(200).render("login");
   } catch (err) {
     res.status(400).json(err);
   }
@@ -44,9 +44,9 @@ router.get("/signup", async (req, res) => {
 });
 
 // This is a placeholder, and will need the logout page to be rendered.
-router.get("/signout", async (req, res) => {
+router.get("/logout", async (req, res) => {
   try {
-    res.status(200).render("signout");
+    res.status(200).render("logout");
   } catch (err) {
     res.status(500).json(err);
   }

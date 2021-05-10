@@ -1,11 +1,11 @@
-const { User, Comment, Post } = require("../../models");
+const { User, Comment, Blog } = require("../../models");
 const router = require("express").Router();
 
-// Dashboard needs to view all posts from the logged in user
+// Dashboard needs to view aBlogs from the logged in user
 
 router.get("/", async (req, res) => {
   try {
-    const rawPostsData = await Post.findAll({
+    const BlogsData = await Blog.findAll({
       include: [
         {
           model: User,

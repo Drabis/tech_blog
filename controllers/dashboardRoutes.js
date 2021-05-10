@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const { User, Post } = require("../models");
-const checkAuthorization = require("../utils/authorization");
+const checkAuth = require("../utils/auth");
 
 // This will get the user by id, and display all the blog posts they've made.
-router.get("/:id", checkAuthorization, async (req, res) => {
+router.get("/:id", checkAuth, async (req, res) => {
   try {
     const userSpecificPosts = await User.findByPk(req.params.id, {
       include: { model: Post, as: "post_creator" },
