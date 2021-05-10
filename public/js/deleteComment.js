@@ -1,6 +1,5 @@
 const deleteComment = async (element) => {
 
-  console.log("hi delete comment");
   const comment_id = element.value;
   console.log(comment_id);
 

@@ -1,9 +1,7 @@
 const deleteBlog = async (event) => {
   event.preventDefault();
 
-  console.log("hi delete");
   const blog_id = document.getElementById("delete-post").value;
-  console.log(blog_id);
 
   const response = await fetch(`/api/blogs/${blog_id}`, {
     method: "DELETE",
