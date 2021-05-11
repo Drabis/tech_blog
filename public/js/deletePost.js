@@ -1,7 +1,7 @@
 const deleteBlog = async (event) => {
   event.preventDefault();
 
-  const blog_id = document.getElementById("delete-post").value;
+  const blog_id = document.querySelectorAll(".delete-post").value;
 
   const response = await fetch(`/api/blogs/${blog_id}`, {
     method: "DELETE",
@@ -14,4 +14,4 @@ const deleteBlog = async (event) => {
   }
 };
 
-document.getElementById("delete-post").addEventListener("click", deleteBlog);
+document.querySelectorAll(".delete-post").addEventListener("click", deleteBlog);

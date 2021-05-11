@@ -32,10 +32,6 @@ Comment.init(
       allowNull: false,
       defaultValue: "Enter your comment.",
     },
-    date_created: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
   },
   {
     sequelize,
