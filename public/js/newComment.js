@@ -1,19 +1,18 @@
 const createComment = async (event) => {
   event.preventDefault();
 
-  const content = document.getElementById("comment-text").value;
-  const url = window.location.href;
-  const split_url = url.split("blogs/");
-
-  const blog_id = split_url[1][0];
-
-  const user_id = document
-    .getElementById("user")
+  const userId = document
+    .querySelector(".user-profile")
     .getAttribute("data-currentuser");
+  console.log(userId);
+  const postId = event.target.getAttribute("data-postid");
+  console.log(postId);
+  const commentContent = document.querySelector(".input-comment").value;
+  console.log(commentContent);
 
-  const response = await fetch(`/api/comments/`, {
+  const response = await fetch(`/api/comments/${userId}/${postId}`, {
     method: "POST",
-    body: JSON.stringify({ user_id, blog_id, content }),
+    body: JSON.stringify({ userId, postId, commentContent }),
     headers: { "Content-Type": "application/json" },
   });
   if (response.ok) {
@@ -23,6 +22,4 @@ const createComment = async (event) => {
   }
 };
 
-document
-  .getElementById("submit-comment")
-  .addEventListener("click", createComment);
+document.querySelector(".new-comment").addEventListener("click", createComment);
