@@ -5,7 +5,7 @@ const router = require("express").Router();
 
 router.get("/", async (req, res) => {
   try {
-    const BlogsData = await Blog.findAll({
+    const blogsData = await Blog.findAll({
       include: [
         {
           model: User,
@@ -23,21 +23,21 @@ router.get("/", async (req, res) => {
         },
       ],
     });
-    const postsData = rawPostsData.map((post) => post.get({ plain: true }));
-    res.status(200).json(postsData);
+    const blogData = rawBlogData.map((blog) => blog.get({ plain: true }));
+    res.status(200).json(blogData);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-// This will create a new post
+// This will create a new blog
 router.post("/", async (req, res) => {
   try {
-    const newPost = await Post.create({
+    const newblog = await Blog.create({
       userId: req.body.userId,
       blogContent: req.body.blogContent,
     });
-    res.status(200).json(newPost);
+    res.status(200).json(newblog);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const updatedPost = await Post.update(
+    const updatedBlog = await Blog.update(
       {
         blogContent: req.body.blogContent,
       },
@@ -55,7 +55,7 @@ router.put("/:id", async (req, res) => {
         where: { id: req.params.id },
       }
     );
-    res.status(200).json(updatedPost);
+    res.status(200).json(updatedBlog);
   } catch (err) {
     res.status(400).json(err);
   }
@@ -64,10 +64,10 @@ router.put("/:id", async (req, res) => {
 //To delete the by the id 
 router.delete("/:id", async (req, res) => {
   try {
-    const deletedPost = await Post.destroy({
+    const deletedBlog = await Blog.destroy({
       where: { id: req.params.id },
     });
-    res.status(200).json(deletedPost);
+    res.status(200).json(deletedBlog);
   } catch (err) {
     res.status(400).json(err);
   }

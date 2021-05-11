@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const { User, Post, Comment } = require("../models");
+const { User, Blog, Comment } = require("../models");
 
 // We grab only the username and comment content from this?
 router.get("/", async (req, res) => {
   try {
-    const postsData = await Post.findAll({
+    const postsData = await Blog.findAll({
       include: [
         {
           model: User,
@@ -24,7 +24,6 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 // This is a placeholder, and will need the login page to be rendered.
 router.get("/login", async (req, res) => {
   try {
@@ -33,7 +32,6 @@ router.get("/login", async (req, res) => {
     res.status(400).json(err);
   }
 });
-
 // This is a placeholder, and will need the create account page.
 router.get("/signup", async (req, res) => {
   try {
@@ -51,5 +49,4 @@ router.get("/logout", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 module.exports = router;
