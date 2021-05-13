@@ -5,13 +5,7 @@ const { User, Blog, Comment } = require("../models");
 router.get("/", async (req, res) => {
   try {
     const postsData = await Blog.findAll({
-      include: [
-        {
-          model: User,
-          as: "post_creator",
-          attributes: ["username"],
-        },
-      ],
+      include: [User]
     });
     const posts = postsData.map((post) => post.get({ plain: true }));
     console.log(posts);

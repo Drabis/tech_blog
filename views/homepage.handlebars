@@ -1,10 +1,15 @@
 
+
 <div class="row align-center mb-5">
+  {{#each posts }}
   <div class="col-md-6">
-    <h2>{{{get_emoji}}} {{user.name}}</h2>
+    <h2>{{{get_emoji}}} {{user.username}}</h2>
+<p> {{title}}</p>
+<p>{{blogContent}}</p>
   </div>
   <div class="col-md-6">
     <h3><a href="mailto:{{user.email}}">{{user.email}}</a></h3>
   </div>
+  {{/each}}
 </div>
 
