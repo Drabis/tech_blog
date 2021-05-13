@@ -27,6 +27,9 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
+          <li>
+            <a class="nav-link active" aria-current="page" href="/signup">Sign Up</a>
+          </li>
           {{#if logged_in}}
           <li class="nav-item">
             <a class="nav-link active user-profile" data-currentuser="{{userId}}" aria-current="page" href="/dashboard/{{userId}}">Dashboard</a>
@@ -34,7 +37,7 @@
           {{/if}}
           {{#unless logged_in}}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/login">Sign in</a>
+            <a class="nav-link active" aria-current="page" href="/login">Sign In</a>
           </li>
           {{/unless}}
           {{#if logged_in}}
@@ -55,6 +58,5 @@
     {{#if logged_in}}
     <script src="../js/logout.js"></script>
     {{/if}}
-    <script src="../js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
