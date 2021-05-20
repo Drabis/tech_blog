@@ -1,14 +1,20 @@
 const router = require("express").Router();
-const { User, Blog } = require("../models");
+const { Blog } = require("../models");
 const checkAuth = require("../utils/auth");
 
 // This will get the user by id, and display all the blog posts they've made.
-router.get("/:id", checkAuth, async (req, res) => {
+router.get("/", checkAuth, async (req, res) => {
+  console.log(req.session);
   try {
-    const userSpecificPosts = await User.findByPk(req.params.id, {
-      include: { model: Blog, as: "post_creator" },
+    const userSpecificPosts = await Blog.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
     });
-    const usersPosts = userSpecificPosts.get({ plain: true });
+    console.log(userSpecificPosts);
+    const usersPosts = userSpecificPosts.map((post) => {
+      post.get({ plain: true });
+    });
     console.log(usersPosts);
     res.status(200).render("dashboard", {
       usersPosts,
@@ -16,7 +22,8 @@ router.get("/:id", checkAuth, async (req, res) => {
       userId: req.session.user_id,
     });
   } catch (err) {
-    res.status(400).json("Page not found!");
+    console.log(err);
+    res.status(400).json(err);
   }
 });
 
